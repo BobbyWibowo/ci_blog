@@ -14,6 +14,6 @@
 * [CodeIgniter Web Framework](https://codeigniter.com/) of the [British Columbia Institute of Technology](http://www.bcit.ca/cas/computing/).
 * [Bulma CSS Framework](https://bulma.io/) by [Jeremy Thomas](https://jgthms.com/).
 
-### Preview
+## Preview
 
 ![Preview](https://i.fiery.me/Uylz.jpg)
