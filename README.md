@@ -13,3 +13,7 @@
 * Free blog template by [dansup (daniel)](https://github.com/dansup).
 * [CodeIgniter Web Framework](https://codeigniter.com/) of the [British Columbia Institute of Technology](http://www.bcit.ca/cas/computing/).
 * [Bulma CSS Framework](https://bulma.io/) by [Jeremy Thomas](https://jgthms.com/).
+
+### Preview
+
+![Preview](https://i.fiery.me/Uylz.jpg)
