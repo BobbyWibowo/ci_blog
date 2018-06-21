@@ -4,6 +4,18 @@ class Blog extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('database');
+        $this->_postconfig = [
+            [
+                'field' => 'title',
+                'label' => 'Title',
+                'rules' => 'trim|required|min_length[3]|max_length[255]'
+            ],
+            [
+                'field' => 'description',
+                'label' => 'Description',
+                'rules' => 'trim|required|min_length[10]|max_length[20000]'
+            ]
+        ];
     }
 
     // Index page
@@ -57,6 +69,8 @@ class Blog extends CI_Controller {
             return redirect(base_url('users/login'));
         }
 
+        $this->load->library('form_validation');
+
         $data = [
             'title' => '',
             'description' => '',
@@ -64,29 +78,20 @@ class Blog extends CI_Controller {
             'errors' => []
         ];
         if ($this->input->post()) {
-            $input = [
-                'title' => trim($this->input->post('title')),
-                'description' => trim($this->input->post('description')),
-                'active' => 1,
-                'user_id' => $this->session->userdata('user_id')
-            ];
-
-            if (!strlen($input['title'])) {
-                $data['errors'][] = 'Title can not be empty.';
+            $this->form_validation->set_rules($this->_postconfig);
+            if ($this->form_validation->run() == FALSE) {
+                $data['errors'] = $this->form_validation->error_array();
+            } else {
+                $input = [
+                    'title' => $this->input->post('title'),
+                    'description' => $this->input->post('description'),
+                    'public' => (bool) $this->input->post('public'),
+                    'comments' => (bool) $this->input->post('comments'),
+                    'user_id' => $this->session->userdata('user_id')
+                ];
+                $post_id = $this->database->insert_post($input);
+                return redirect(base_url('blog/post/'.$post_id));
             }
-
-            if (!strlen($input['description'])) {
-                $data['errors'][] = 'Description can not be empty.';
-            }
-
-            if (count($data['errors'])) {
-                $data['title'] = $input['title'];
-                $data['description'] = $input['description'];
-                return $this->load->view($data['active'], $data);
-            }
-
-            $this->database->insert_post($input);
-            return redirect(base_url());
         }
 
         $this->load->view($data['active'], $data);
@@ -99,6 +104,8 @@ class Blog extends CI_Controller {
             return redirect(base_url('users/login'));
         }
 
+        $this->load->library('form_validation');
+
         $data = [
             'title' => '',
             'description' => '',
@@ -107,30 +114,19 @@ class Blog extends CI_Controller {
             'errors' => []
         ];
         if ($this->input->post()) {
-            $input = [
-                'title' => $this->input->post('title'),
-                'description' => $this->input->post('description'),
-                'active' => 1
-            ];
-
-            if (!strlen($input['title'])) {
-                $data['errors'][] = 'Title can not be empty.';
-            }
-
-            if (!strlen($input['description'])) {
-                $data['errors'][] = 'Description can not be empty.';
-            }
-
-            if (count($data['errors'])) {
-                $data['post'] = [
-                    'title' => $input['title'],
-                    'description' => $input['description']
+            $this->form_validation->set_rules($this->_postconfig);
+            if ($this->form_validation->run() == FALSE) {
+                $data['errors'] = $this->form_validation->error_array();
+            } else {
+                $input = [
+                    'title' => $this->input->post('title'),
+                    'description' => $this->input->post('description'),
+                    'public' => (bool) $this->input->post('public'),
+                    'comments' => (bool) $this->input->post('comments')
                 ];
-                return $this->load->view($data['active'], $data);
+                $this->database->update_post($post_id, $input);
+                $data['success'] = TRUE;
             }
-
-            $this->database->update_post($post_id, $input);
-            $data['success'] = TRUE;
         }
 
         $data['post'] = $this->database->get_post($post_id);

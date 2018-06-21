@@ -5,7 +5,7 @@ class Database extends CI_Model {
         $this->db->select('posts.*,users.username');
         $this->db->from('posts');
         $this->db->join('users', 'users.user_id = posts.user_id', 'left');
-        $this->db->where('active', 1);
+        $this->db->where('public', 1);
         $this->db->order_by('date_added', 'desc');
         $this->db->limit($number, $start);
         $query = $this->db->get();
@@ -18,13 +18,14 @@ class Database extends CI_Model {
         $this->db->join('users', 'users.user_id = posts.user_id', 'left');
 		$this->db->like('title', $query, 'both');
 		$this->db->or_like('description', $query, 'both');
+        $this->db->where('public', 1);
 		$this->db->order_by('date_added', 'desc');
 		$query = $this->db->get();
 		return $query->result_array();
     }
 
     function get_post_count() {
-        $this->db->select()->from('posts')->where('active', 1);
+        $this->db->select()->from('posts')->where('public', 1);
         $query = $this->db->count_all_results();
         return $query;
     }
@@ -33,13 +34,13 @@ class Database extends CI_Model {
         $this->db->select('posts.*,users.username');
         $this->db->from('posts');
         $this->db->join('users', 'users.user_id = posts.user_id', 'left');
-        $this->db->where([
-            'active' => 1,
-            'post_id' => $post_id
-        ]);
+        $this->db->where('post_id', $post_id);
         $this->db->order_by('date_added', 'desc');
         $query = $this->db->get();
-        return $query->first_row('array');
+        $array = $query->first_row('array');
+        $array['public'] = (bool) $array['public'];
+        $array['comments'] = (bool) $array['comments'];
+        return $array;
     }
 
     function insert_post($data) {

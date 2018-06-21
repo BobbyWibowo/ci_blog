@@ -31,20 +31,23 @@
                     <a class="navbar-item <?=is_active($active, 'home')?>" href="<?=base_url()?>">
                         Home
                     </a>
+                    <a class="navbar-item" href="<?=base_url('blog/post/21')?>">
+                        About Me
+                    </a>
+                    <a class="navbar-item <?=is_active($active, 'search')?>" href="<?=base_url('blog/search')?>">
+                        Search
+                    </a>
                     <?php if ($this->session->userdata('user_id')) {?>
-                    <a class="navbar-item <?=is_active($active, 'new_post')?>" href="<?=base_url('blog/new_post')?>">
-                        New Post
-                    </a>
-                    <a class="navbar-item <?=is_active($active, 'upload')?>" href="<?=base_url('upload')?>">
-                        Upload
-                    </a>
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">
-                                Account
-                            </a>
+                            <?=$this->session->userdata['username']?>
+                        </a>
                         <div class="navbar-dropdown">
-                            <a class="navbar-item">
-                                <?=$this->session->userdata['username']?>
+                            <a class="navbar-item <?=is_active($active, 'new_post')?>" href="<?=base_url('blog/new_post')?>">
+                                New Post
+                            </a>
+                            <a class="navbar-item <?=is_active($active, 'upload')?>" href="<?=base_url('upload')?>">
+                                Upload
                             </a>
                             <hr class="navbar-divider">
                             <a class="navbar-item" href="<?=base_url('users/logout')?>">
@@ -60,9 +63,6 @@
                         Register
                     </a>
                     <?php } ?>
-                    <a class="navbar-item <?=is_active($active, 'search')?>" href="<?=base_url('blog/search')?>">
-                        Search
-                    </a>
                 </div>
             </div>
         </div>
@@ -72,7 +72,8 @@
     <section class="hero is-info is-medium is-bold">
         <div class="hero-body">
             <div class="container has-text-centered">
-                <h1 class="title">*inserts some meaningful slogan here*</h1>
+                <h1 class="title">"Life is like riding a bicycle. To keep your balance, you must keep moving."</h1>
+                <div class="subtitle" style="font-weight: 800">Albert Einstein</div>
             </div>
         </div>
     </section>

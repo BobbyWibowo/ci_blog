@@ -1,5 +1,9 @@
 # LICENSE
 
+## 256px.png
+
+[Bulma](https://bulma.io/) by [Jeremy Thomas](https://jgthms.com/).
+
 ## blogging.png
 
 [Freepik](http://www.freepik.com) from [Flaticon](https://www.flaticon.com/) (CC BY 3.0 License).

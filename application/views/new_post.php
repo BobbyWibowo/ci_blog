@@ -15,15 +15,29 @@
                             <div class="field">
                                 <label class="label">Title</label>
                                 <div class="control">
-                                    <input class="input" type="text" name="title" value="<?=$title?>">
+                                    <input class="input" type="text" name="title" value="<?=set_value('title')?>">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">Description</label>
                                 <div class="control">
-                                    <textarea class="textarea" name="description"><?=$description?></textarea>
+                                    <textarea class="textarea" name="description"><?=set_value('description')?></textarea>
                                 </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="comments" <?=set_checkbox('comments', 'on', TRUE)?>>
+                                    Allow comments
+                                </label>
+                            </div>
+
+                            <div class="field">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="public" <?=set_checkbox('public', 'on', TRUE)?>>
+                                    Public
+                                </label>
                             </div>
 
                             <div class="field">

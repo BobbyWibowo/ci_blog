@@ -7,7 +7,7 @@
                     <div class="content article-body">
                         <h2>Edit Post</h2>
                         <?php if ($success) { ?>
-                        <div class="notification is-success">
+                        <div class="notification is-info">
                             The post has been updated.
                         </div>
                         <?php } ?>
@@ -20,15 +20,29 @@
                             <div class="field">
                                 <label class="label">Title</label>
                                 <div class="control">
-                                    <input class="input" type="text" name="title" value="<?=$post['title']?>">
+                                    <input class="input" type="text" name="title" value="<?=set_value('title', $post['title'])?>">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">Description</label>
                                 <div class="control">
-                                    <textarea class="textarea" name="description"><?=$post['description']?></textarea>
+                                    <textarea class="textarea" name="description"><?=set_value('description', $post['description'])?></textarea>
                                 </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="comments" <?=set_checkbox('comments', 'on', $post['comments'])?>>
+                                    Allow comments
+                                </label>
+                            </div>
+
+                            <div class="field">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="public" <?=set_checkbox('public', 'on', $post['public'])?>>
+                                    Public
+                                </label>
                             </div>
 
                             <div class="field is-grouped">

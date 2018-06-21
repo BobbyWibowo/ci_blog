@@ -77,13 +77,13 @@ class Users extends CI_Controller {
             if ($this->form_validation->run() == FALSE) {
                 $data['errors'] = $this->form_validation->error_array();
             } else {
-                $data = [
+                $input = [
                     'username' => $this->input->post('username'),
                     'email' => $this->input->post('email'),
                     'password' => sha1($this->input->post('password')),
                     'user_type' => $this->input->post('user_type'),
                 ];
-                $user_id = $this->user->create_user($data);
+                $user_id = $this->user->create_user($input);
                 $this->session->set_userdata('user_id',$user_id);
                 $this->session->set_userdata('username',$this->input->post('username'));
                 $this->session->set_userdata('user_type',$this->input->post('user_type'));

@@ -28,34 +28,38 @@
             <div class="card article" style="margin-top: 1rem">
                 <div class="card-content">
                     <div class="content article-body">
-                        <?php if (count($comments)) { ?>
-                            <?php foreach ($comments as $row) {?>
-                                <blockquote>
-                                    <strong><?=$row['username']?></strong> <small><?=date_format(date_create($row['date_added']), 'Y-m-d H:i:s')?></small>
-                                    <br>
-                                    <?=strip_tags($row['comment'])?>
-                                </blockquote>
-                            <?php }?>
-                        <?php } else { ?>
-                            <p>Currently, there are no comments.</p>
-                        <?php } ?>
-                        <?php if ($this->session->userdata('user_id')) {?>
-                            <form action="<?=base_url('comments/add_comment/'.$post['post_id'])?>" method="post">
-                                <div class="field">
-                                    <label class="label">New comment</label>
-                                    <div class="control">
-                                        <textarea class="textarea" name="comment"></textarea>
+                        <?php if ($post['comments']) { ?>
+                            <?php if (count($comments)) { ?>
+                                <?php foreach ($comments as $row) {?>
+                                    <blockquote>
+                                        <strong><?=$row['username']?></strong> <small><?=date_format(date_create($row['date_added']), 'Y-m-d H:i:s')?></small>
+                                        <br>
+                                        <?=strip_tags($row['comment'])?>
+                                    </blockquote>
+                                <?php }?>
+                            <?php } else { ?>
+                                <p>Currently, there are no comments.</p>
+                            <?php } ?>
+                            <?php if ($this->session->userdata('user_id')) {?>
+                                <form action="<?=base_url('comments/add_comment/'.$post['post_id'])?>" method="post">
+                                    <div class="field">
+                                        <label class="label">New comment</label>
+                                        <div class="control">
+                                            <textarea class="textarea" name="comment"></textarea>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="field">
-                                    <p class="control">
-                                        <input type="submit" class="button is-primary" value="Submit">
-                                    </p>
-                                </div>
-                            </form>
+                                    <div class="field">
+                                        <p class="control">
+                                            <input type="submit" class="button is-primary" value="Submit">
+                                        </p>
+                                    </div>
+                                </form>
+                            <?php } else { ?>
+                                <a href="<?=base_url('users/login')?>">Login to comment</a>.
+                            <?php } ?>
                         <?php } else { ?>
-                            <a href="<?=base_url('users/login')?>">Login to comment</a>.
+                            <p>Comments are disabled for this post.</p>
                         <?php } ?>
                     </div>
                 </div>
